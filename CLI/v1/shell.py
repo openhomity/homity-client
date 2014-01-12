@@ -5,7 +5,8 @@ from CLI.v1 import spoke_shell
 
 COMMAND_MODULES = [
     pin_shell,
-    spoke_shell
+    spoke_shell,
+    garage_shell
 ]
 
 

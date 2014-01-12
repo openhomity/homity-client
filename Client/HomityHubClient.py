@@ -160,11 +160,7 @@ class HomityHubClient:
 			path.insert(0,"spoke")
 			location = '/'.join(path)
 			return self.send_delete(location, params={ })
-		'''
-		if spoke_id:
-			location = "spoke/%s" % (spoke_id)
-			return self.send_delete(location, params={ })
-		'''
+
 	def pin_delete(self, pin_id=False, path=[]):
 		if pin_id:
 			path.insert(0,pin_id)
@@ -196,31 +192,44 @@ class HomityHubClient:
 
 		return decoded_json_response
 
-	def garage(self):
-		location = "garage"
-		decoded_json_response = self.send_get(location, params={ })
+	def garage_controller_drivers(self):
+		location = "garagecontrollerdrivers"
+		return self.send_get(location, params={ })
+	
+	def garage_controller(self, garage_controller_id=False, path=[], value=False):
+		if garage_controller_id:
+			path.insert(0,garage_controller_id)
+		path.insert(0,"garagecontroller")
+		location = '/'.join(path)
+
+		if value:
+			decoded_json_response = self.send_put(location, params={"value":value})
+		else:
+			decoded_json_response = self.send_get(location, params={ })
+
+		return decoded_json_response
+	
+	def garage_controller_create(self, name="", driver="", driver_info={}):
+		location = "garagecontroller"
+		return self.send_post(location, params={"name":name, "driver":driver, "driver_info":driver_info})
+	
+	def garage_controller_delete(self, garage_controller_id=False, path=[]):
+		if garage_controller_id:
+			path.insert(0,garage_controller_id)
+			path.insert(0,"garagecontroller")
+			location = '/'.join(path)
+			return self.send_delete(location, params={ })
+
+	def garage(self, garage_id=False, path=[], value=False):
+		if garage_id:
+			path.insert(0,garage_id)
+		path.insert(0,"garage")
+		location = '/'.join(path)
+		
+		if value:
+			decoded_json_response = self.send_put(location, params={"value":value})
+		else:
+			decoded_json_response = self.send_get(location, params={ })
 
 		return decoded_json_response
 
-	def alarm(self):
-		location = "alarm"
-		decoded_json_response = self.send_get(location, params={ })
-		return decoded_json_response
-	
-	def camera(self):
-		location = "camera"
-		decoded_json_response = self.send_get(location, params={ })
-		return decoded_json_response
-	
-	def setCamera(self,cameraName,newStatus, delay = False):
-		location = "camera"
-		params = {"cameraName" : cameraName , "newStatus" : newStatus}
-		if delay:
-			params['delay'] = delay 
-		decoded_json_response = self.send_post(location, params=params)
-		return True
-	
-	def allStatus(self):
-		location = "allStatus"
-		decoded_json_response = self.send_get(location, params={ })
-		return decoded_json_response

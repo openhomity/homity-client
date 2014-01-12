@@ -74,31 +74,3 @@ def do_spoke_update(cc, args):
     except HomityHubClientError as e:
         print e
     _print_spoke_show(spoke)
-    
-    
-'''
-def _print_spoke_pin_show(pin):
-    fields = ['id', 'name', 'num', 'allocated', 'digital', 'output','scheduleOn','schedule', 'allocated', 'status']
-    data = OrderedDict([(f, pin.get(f)) for f in fields])
-    utils.print_dict(data, wrap=72)
-    
-@utils.arg('spoke', metavar='<spoke id>', help="UUID of spoke")
-@utils.arg('pin', metavar='<pin id>', help="UUID of pin")
-def do_spoke_pin_show(cc, args):
-    """Show a spoke's pin."""
-    pin = cc.spoke(spoke_id=args.spoke, level1="pins", level2=args.pin)
-    _print_spoke_pin_show(pin)
-
-@utils.arg('spoke', metavar='<spoke id>', help="UUID of spoke")
-@utils.arg('pin', metavar='<pin id>', help="UUID of pin")
-@utils.arg('attributes', metavar='<path=value>', nargs='+', action='append', default=[], help="Attributes to change")
-def do_spoke_pin_update(cc, args):
-    """Update an spoke's pin."""
-    for attribute in args.attributes[0]:
-        path, value = attribute.split("=", 1)
-        cc.spoke(spoke_id=args.spoke, level1="pins", level2=args.pin, level3=path, value=value)
-    
-    pin = cc.spoke(spoke_id=args.spoke, level1="pins", level2=args.pin)
-    _print_spoke_pin_show(pin)
-''' 
-    
