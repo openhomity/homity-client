@@ -183,10 +183,10 @@ def exit(msg=''):
         print(msg)
     sys.exit(1)
     
-def bool_or_string(string):
-    if string in ['True', 'true', 'TRUE']:
+def bool_or_string(s):
+    if s == True or s.strip().lower() in ('t', 'true', 'yes', '1'):
         return True
-    if string in ['False', 'false', 'FALSE']:
+    elif s == False or s.strip().lower() in ('f', 'false', 'no', '0'):
         return False
     else:
-        return str(string)
+        return str(s)

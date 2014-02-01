@@ -68,7 +68,7 @@ def do_spoke_update(cc, args):
     for attribute in args.attributes[0]:
         pathkey, value = attribute.split("=", 1)
         path = pathkey.split("/")
-        cc.spoke(spoke_id=args.spoke, path=path, value=value)
+        cc.spoke(spoke_id=args.spoke, path=path, value=utils.bool_or_string(value))
     try:
         spoke = cc.spoke(spoke_id=args.spoke)
     except HomityHubClientError as e:

@@ -95,7 +95,7 @@ def do_garage_controller_update(cc, args):
     for attribute in args.attributes[0]:
         pathkey, value = attribute.split("=", 1)
         path = pathkey.split("/")
-        cc.garage_controller(garage_controller_id=args.garage_controller, path=path, value=value)
+        cc.garage_controller(garage_controller_id=args.garage_controller, path=path, value=utils.bool_or_string(value))
     try:
         garage_controller = cc.garage_controller(garage_controller_id=args.garage_controller)
     except HomityHubClientError as e:

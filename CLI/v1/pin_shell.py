@@ -26,7 +26,7 @@ def do_pin_update(cc, args):
     for attribute in args.attributes[0]:
         pathkey, value = attribute.split("=", 1)
         path = pathkey.split("/")
-        cc.pin(pin_id=args.pin, path=path, value=value)
+        cc.pin(pin_id=args.pin, path=path, value=utils.bool_or_string(value))
     
     pin = cc.pin(pin_id=args.pin)
     _print_pin_show(pin)

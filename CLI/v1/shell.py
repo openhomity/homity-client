@@ -1,6 +1,7 @@
 from CLI.Common import utils
 from CLI.v1 import pin_shell
 from CLI.v1 import spoke_shell
+from CLI.v1 import garage_shell
 
 
 COMMAND_MODULES = [
