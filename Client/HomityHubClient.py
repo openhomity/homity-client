@@ -137,55 +137,63 @@ class HomityHubClient:
 		location = "spokedrivers"
 		return self.send_get(location, params={ })
 	
-	def spoke(self, spoke_id=False, path=[], value=False):
-		if spoke_id:
+	def spoke(self, spoke_id=None, path=None, value=None):
+		if path == None:
+			path = []
+		if spoke_id != None:
 			path.insert(0,spoke_id)
 		path.insert(0,"spoke")
 		location = '/'.join(path)
 
-		if value:
+		if value != None:
 			decoded_json_response = self.send_put(location, params={"value":value})
 		else:
 			decoded_json_response = self.send_get(location, params={ })
 
 		return decoded_json_response
 	
-	def spoke_create(self, name="", driver="", driver_info={}):
+	def spoke_create(self, name=None, driver=None, driver_info=None):
 		location = "spoke"
 		return self.send_post(location, params={"name":name, "driver":driver, "driver_info":driver_info})
 	
-	def spoke_delete(self, spoke_id=False, path=[]):
-		if spoke_id:
+	def spoke_delete(self, spoke_id=None, path=None):
+		if path == None:
+			path = []
+		if spoke_id != None:
 			path.insert(0,spoke_id)
 			path.insert(0,"spoke")
 			location = '/'.join(path)
 			return self.send_delete(location, params={ })
 
-	def pin_delete(self, pin_id=False, path=[]):
-		if pin_id:
+	def pin_delete(self, pin_id=None, path=None):
+		if path == None:
+			path = []
+		if pin_id != None:
 			path.insert(0,pin_id)
 			path.insert(0,"pin")
 			location = '/'.join(path)
 			return self.send_delete(location, params={ })
 		
-	def pin_schedule(self, pin_id, new_entry={}, entry_index=False):
-		if new_entry != {} and entry_index: #can't create & delete
+	def pin_schedule(self, pin_id, new_entry=None, entry_index=None):
+		if new_entry == None:
+			new_entry = {}
+		if new_entry != {} and entry_index != None: #can't create & delete
 			return False
-		elif entry_index: #delete the entry
+		elif entry_index != None: #delete the entry
 			return self.pin_delete(pin_id = pin_id,path=["schedule",entry_index])
-		elif new_entry:
+		elif new_entry != None:
 			if "minute" and "hour" and "days" and "action" in new_entry:
 				new_entry_string = ':'.join([new_entry['minute'],new_entry['hour'],new_entry['days'],new_entry['action']])
 				return self.pin(pin_id=pin_id, path=["schedule"], value=new_entry_string)
 		return False
 	
-	def pin(self, pin_id=False, path=[], value=False):
-		if pin_id:
+	def pin(self, pin_id=None, path=[], value=None):
+		if pin_id != None:
 			path.insert(0,pin_id)
 		path.insert(0,"pin")
 		location = '/'.join(path)
 		
-		if value:
+		if value != None:
 			decoded_json_response = self.send_put(location, params={"value":value})
 		else:
 			decoded_json_response = self.send_get(location, params={ })
@@ -196,37 +204,37 @@ class HomityHubClient:
 		location = "garagecontrollerdrivers"
 		return self.send_get(location, params={ })
 	
-	def garage_controller(self, garage_controller_id=False, path=[], value=False):
-		if garage_controller_id:
+	def garage_controller(self, garage_controller_id=None, path=[], value=None):
+		if garage_controller_id != None:
 			path.insert(0,garage_controller_id)
 		path.insert(0,"garagecontroller")
 		location = '/'.join(path)
 
-		if value:
+		if value != None:
 			decoded_json_response = self.send_put(location, params={"value":value})
 		else:
 			decoded_json_response = self.send_get(location, params={ })
 
 		return decoded_json_response
 	
-	def garage_controller_create(self, name="", driver="", driver_info={}):
+	def garage_controller_create(self, name=None, driver=None, driver_info=None):
 		location = "garagecontroller"
 		return self.send_post(location, params={"name":name, "driver":driver, "driver_info":driver_info})
 	
-	def garage_controller_delete(self, garage_controller_id=False, path=[]):
+	def garage_controller_delete(self, garage_controller_id=None, path=None):
 		if garage_controller_id:
 			path.insert(0,garage_controller_id)
 			path.insert(0,"garagecontroller")
 			location = '/'.join(path)
 			return self.send_delete(location, params={ })
 
-	def garage(self, garage_id=False, path=[], value=False):
-		if garage_id:
+	def garage(self, garage_id=None, path=None, value=None):
+		if garage_id != None:
 			path.insert(0,garage_id)
 		path.insert(0,"garage")
 		location = '/'.join(path)
 		
-		if value:
+		if value != None:
 			decoded_json_response = self.send_put(location, params={"value":value})
 		else:
 			decoded_json_response = self.send_get(location, params={ })
