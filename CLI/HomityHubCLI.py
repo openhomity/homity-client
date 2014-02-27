@@ -1,19 +1,15 @@
+"""Homity Hub CLI."""
 import argparse
 import logging
-import sys,os
-
-from pprint import pprint
 
 from Client.HomityHubClient import HomityHubClient, HomityHubClientError
 from CLI.Common import utils
 from CLI.Common import exc
 
-
-def _prettyPrint(retVal):
-    print json.dumps(retVal,sort_keys=False,indent=4, separators=(',', ': '))
-    
 class HomityHubCLI(object):
+    """Class for Homity CLIs."""
     def get_base_parser(self):
+        """Top level parser."""
         parser = argparse.ArgumentParser(
             prog='homity',
             description="Homity CLI",
@@ -45,6 +41,7 @@ class HomityHubCLI(object):
         return parser
 
     def get_subcommand_parser(self, version=""):
+        """Grab child parsers."""
         parser = self.get_base_parser()
 
         self.subcommands = {}
@@ -55,6 +52,7 @@ class HomityHubCLI(object):
         return parser
 
     def _setup_debugging(self, debug):
+        """Turn on debugging."""
         if debug:
             logging.basicConfig(
                 format="%(levelname)s (%(module)s:%(lineno)d) %(message)s",
@@ -66,6 +64,7 @@ class HomityHubCLI(object):
                     level=logging.CRITICAL)
 
     def main(self, argv, client_config):
+        """Do stuff."""
         # Parse args once to find version
         parser = self.get_base_parser()
         (options, args) = parser.parse_known_args(argv)
@@ -88,15 +87,16 @@ class HomityHubCLI(object):
         if args.func == self.do_help:
             self.do_help(args)
             return 0
-        
-        client = HomityHubClient(hostname=client_config.get('hostname'), username=client_config.get('username'),
-                                   password=client_config.get('password'), use_ssl=client_config.get('use_ssl'),
-                                   verify_ssl=client_config.get('verify_ssl'), stateless=True, version=1)
 
-        
-        #client.login(quick=True)
+        client = HomityHubClient(hostname=client_config.get('hostname'),
+                                 username=client_config.get('username'),
+                                 password=client_config.get('password'),
+                                 use_ssl=client_config.get('use_ssl'),
+                                 verify_ssl=client_config.get('verify_ssl'),
+                                 stateless=True,
+                                 version=1)
+
         args.func(client, args)
-        #client.logout()
 
     @utils.arg('command', metavar='<subcommand>', nargs='?',
                help='Display help for <subcommand>')
@@ -113,7 +113,9 @@ class HomityHubCLI(object):
 
 
 class HelpFormatter(argparse.HelpFormatter):
+    """Format help prints."""
     def start_section(self, heading):
         # Title-case the headings
         heading = '%s%s' % (heading[0].upper(), heading[1:])
         super(HelpFormatter, self).start_section(heading)
+        
