@@ -276,3 +276,63 @@ class HomityHubClient(object):
 
         return decoded_json_response
 
+    def camera_controller_drivers(self):
+        """Grab camera controller driver list."""
+        location = "cameracontrollerdrivers"
+        return self.send_get(location, params={})
+
+    def camera_controller(self, camera_controller_id=None,
+                          path=None, value=None):
+        """GET/PUT for camera controller."""
+        if path == None:
+            path = []
+        if camera_controller_id != None:
+            path.insert(0, camera_controller_id)
+        path.insert(0, "cameracontroller")
+        location = '/'.join(path)
+
+        if value != None:
+            decoded_json_response = self.send_put(location,
+                                                  params={"value":value})
+        else:
+            decoded_json_response = self.send_get(location,
+                                                  params={})
+
+        return decoded_json_response
+
+    def camera_controller_create(self, name=None,
+                                 driver=None, driver_info=None):
+        """Create a new camera controller."""
+        location = "cameracontroller"
+        return self.send_post(location, params={"name":name,
+                                                "driver":driver,
+                                                "driver_info":driver_info})
+
+    def camera_controller_delete(self, camera_controller_id=None, path=None):
+        """Delete a camera controller."""
+        if path == None:
+            path = []
+        if camera_controller_id:
+            path.insert(0, camera_controller_id)
+            path.insert(0, "cameracontroller")
+            location = '/'.join(path)
+            return self.send_delete(location, params={})
+
+    def camera(self, camera_id=None, path=None, value=None):
+        """GET/PUT for camera."""
+        if path == None:
+            path = []
+        if camera_id != None:
+            path.insert(0, camera_id)
+        path.insert(0, "camera")
+        location = '/'.join(path)
+
+        if value != None:
+            decoded_json_response = self.send_put(location,
+                                                  params={"value":value})
+        else:
+            decoded_json_response = self.send_get(location,
+                                                  params={})
+
+        return decoded_json_response
+
