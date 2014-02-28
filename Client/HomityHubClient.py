@@ -20,7 +20,7 @@ requests_log.propagate = True
 class HomityHubClientError(Exception):
     """Handle client errors."""
     def __init__(self, value):
-        Exception.__init__()
+        Exception.__init__(self)
         self.value = value
 
     def __str__(self):
