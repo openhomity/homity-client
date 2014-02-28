@@ -187,7 +187,9 @@ class HomityHubClient:
 				return self.pin(pin_id=pin_id, path=["schedule"], value=new_entry_string)
 		return False
 	
-	def pin(self, pin_id=None, path=[], value=None):
+	def pin(self, pin_id=None, path=None, value=None):
+		if path == None:
+			path = []
 		if pin_id != None:
 			path.insert(0,pin_id)
 		path.insert(0,"pin")
@@ -204,7 +206,9 @@ class HomityHubClient:
 		location = "garagecontrollerdrivers"
 		return self.send_get(location, params={ })
 	
-	def garage_controller(self, garage_controller_id=None, path=[], value=None):
+	def garage_controller(self, garage_controller_id=None, path=None, value=None):
+		if path == None:
+			path = []
 		if garage_controller_id != None:
 			path.insert(0,garage_controller_id)
 		path.insert(0,"garagecontroller")
@@ -222,6 +226,8 @@ class HomityHubClient:
 		return self.send_post(location, params={"name":name, "driver":driver, "driver_info":driver_info})
 	
 	def garage_controller_delete(self, garage_controller_id=None, path=None):
+		if path == None:
+			path = []
 		if garage_controller_id:
 			path.insert(0,garage_controller_id)
 			path.insert(0,"garagecontroller")
@@ -229,6 +235,8 @@ class HomityHubClient:
 			return self.send_delete(location, params={ })
 
 	def garage(self, garage_id=None, path=None, value=None):
+		if path == None:
+			path = []
 		if garage_id != None:
 			path.insert(0,garage_id)
 		path.insert(0,"garage")
