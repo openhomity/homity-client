@@ -93,7 +93,6 @@ class HomityHubCLI(object):
                                  password=client_config.get('password'),
                                  use_ssl=client_config.get('use_ssl'),
                                  verify_ssl=client_config.get('verify_ssl'),
-                                 stateless=True,
                                  version=1)
 
         args.func(client, args)
