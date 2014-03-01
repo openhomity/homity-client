@@ -21,10 +21,19 @@ def do_spoke_pin_list(cc, args):
     field_labels = ['UUID', 'Name', 'Num', 'Allocated', 'Digital', 'Output', 'Status']
     fields = ['id', 'name', 'num', 'allocated', 'digital', 'output', 'status']
     utils.print_dict_as_list(pins, fields, field_labels, sortby=1)
-    
+
+@utils.arg('-f', '--filters', metavar='<key=value>', nargs='+',
+           action='append', default=[], help="Attributes to change")
 def do_spoke_list(cc, args):
     """List spokes."""
-    spokes = cc.spoke()
+    if len(args.filters) > 0:
+        filters = {}
+        for entry in args.filters[0]:
+            key, value = entry.split("=", 1)
+            filters[key] = value
+            spokes = cc.spoke(**filters)
+    else:
+        spokes = cc.spoke()
     field_labels = ['UUID', 'Name', 'Active', 'Driver']
     fields = ['id', 'name', 'active', 'driver']
     utils.print_list(spokes, fields, field_labels, sortby=1)

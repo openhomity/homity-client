@@ -129,7 +129,7 @@ class HomityHubClient(object):
         return self.send_get(location,
                              params={})
 
-    def spoke(self, spoke_id=None, path=None, value=None):
+    def spoke(self, spoke_id=None, path=None, value=None, **kwargs):
         """GET/PUT for spoke."""
         if path == None:
             path = []
@@ -143,7 +143,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 
@@ -198,7 +198,7 @@ class HomityHubClient(object):
                                 value=new_entry_string)
         return False
 
-    def pin(self, pin_id=None, path=None, value=None):
+    def pin(self, pin_id=None, path=None, value=None, **kwargs):
         """GET/PUT for pin object."""
         if path == None:
             path = []
@@ -212,7 +212,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 
@@ -222,7 +222,7 @@ class HomityHubClient(object):
         return self.send_get(location, params={})
 
     def garage_controller(self, garage_controller_id=None,
-                          path=None, value=None):
+                          path=None, value=None, **kwargs):
         """GET/PUT for garage controller."""
         if path == None:
             path = []
@@ -236,7 +236,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 
@@ -258,7 +258,7 @@ class HomityHubClient(object):
             location = '/'.join(path)
             return self.send_delete(location, params={})
 
-    def garage(self, garage_id=None, path=None, value=None):
+    def garage(self, garage_id=None, path=None, value=None, **kwargs):
         """GET/PUT for garage."""
         if path == None:
             path = []
@@ -272,7 +272,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 

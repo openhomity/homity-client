@@ -12,9 +12,18 @@ def do_pin_show(cc, args):
     pin = cc.pin(pin_id=args.pin)
     _print_pin_show(pin)
 
+@utils.arg('-f', '--filters', metavar='<key=value>', nargs='+',
+           action='append', default=[], help="Attributes to change")
 def do_pin_list(cc, args):
     """List pins."""
-    pins = cc.pin()
+    if len(args.filters) > 0:
+        filters = {}
+        for entry in args.filters[0]:
+            key, value = entry.split("=", 1)
+            filters[key] = value
+            pins = cc.pin(**filters)
+    else:
+        pins = cc.pin()
     field_labels = ['UUID', 'Spoke UUID', 'Location', 'Name', 'Num', 'Allocated', 'Digital', 'Output', 'Status']
     fields = ['id', 'spoke', 'location', 'name', 'num', 'allocated', 'digital', 'output', 'status']
     utils.print_list(pins, fields, field_labels, sortby=1)
