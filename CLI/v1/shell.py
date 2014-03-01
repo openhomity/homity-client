@@ -1,12 +1,10 @@
 from CLI.Common import utils
-from CLI.v1 import pin_shell
 from CLI.v1 import spoke_shell
 from CLI.v1 import garage_shell
 from CLI.v1 import camera_shell
 
 
 COMMAND_MODULES = [
-    pin_shell,
     spoke_shell,
     garage_shell,
     camera_shell
