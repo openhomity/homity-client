@@ -19,9 +19,11 @@ def do_camera_show(cc, args):
     camera = cc.camera(camera_id=args.camera)
     _print_camera_show(camera)
 
+@utils.arg('filters', metavar='<key=value>', nargs='+',
+           action='append', default=[], help="Attributes to change")
 def do_camera_list(cc, args):
     """List cameras."""
-    cameras = cc.camera()
+    cameras = cc.camera(**args.filters)
     field_labels = ['UUID', 'Controller UUID', 'Location', 'Name',
                     'Description', 'Allocated', 'On', 'Recording', 'Alerts']
     fields = ['id', 'controller', 'location', 'name',
@@ -61,9 +63,11 @@ def do_camera_controller_camera_list(cc, args):
               'description', 'allocated', 'on', 'recording', 'alerts']
     utils.print_dict_as_list(cameras, fields, field_labels, sortby=1)
 
+@utils.arg('filters', metavar='<key=value>', nargs='+',
+           action='append', default=[], help="Attributes to change")
 def do_camera_controller_list(cc, args):
     """List camera_controller."""
-    camera_controllers = cc.camera_controller()
+    camera_controllers = cc.camera_controller(**args.filters)
     field_labels = ['UUID', 'Name', 'Active', 'Driver']
     fields = ['id', 'name', 'active', 'driver']
     utils.print_list(camera_controllers, fields, field_labels, sortby=1)

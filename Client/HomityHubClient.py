@@ -282,7 +282,7 @@ class HomityHubClient(object):
         return self.send_get(location, params={})
 
     def camera_controller(self, camera_controller_id=None,
-                          path=None, value=None):
+                          path=None, value=None, **kwargs):
         """GET/PUT for camera controller."""
         if path == None:
             path = []
@@ -296,7 +296,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 
@@ -318,7 +318,7 @@ class HomityHubClient(object):
             location = '/'.join(path)
             return self.send_delete(location, params={})
 
-    def camera(self, camera_id=None, path=None, value=None):
+    def camera(self, camera_id=None, path=None, value=None, **kwargs):
         """GET/PUT for camera."""
         if path == None:
             path = []
@@ -332,7 +332,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 
