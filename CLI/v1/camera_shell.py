@@ -8,7 +8,7 @@ def _print_camera_controller_show(camera_controller):
     utils.print_dict(data, wrap=72)
 
 def _print_camera_show(camera):
-    fields = ['id', 'location', 'name', 'allocated',
+    fields = ['id', 'location', 'name', 'description', 'allocated',
               'on', 'recording', 'alerts', 'controller']
     data = OrderedDict([(f, camera.get(f)) for f in fields])
     utils.print_dict(data, wrap=72)
