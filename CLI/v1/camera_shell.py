@@ -23,11 +23,14 @@ def do_camera_show(cc, args):
            action='append', default=[], help="Attributes to change")
 def do_camera_list(cc, args):
     """List cameras."""
-    filters = {}
-    for entry in args.filters[0]:
-        key, value = entry.split("=", 1)
-        filters[key] = value
-    cameras = cc.camera(**filters)
+    if len(args.filters) > 0:
+        filters = {}
+        for entry in args.filters[0]:
+            key, value = entry.split("=", 1)
+            filters[key] = value
+            cameras = cc.camera(**filters)
+    else:
+        cameras = cc.camera()
     field_labels = ['UUID', 'Controller UUID', 'Location', 'Name',
                     'Description', 'Allocated', 'On', 'Recording', 'Alerts']
     fields = ['id', 'controller', 'location', 'name',
@@ -71,11 +74,14 @@ def do_camera_controller_camera_list(cc, args):
            action='append', default=[], help="Attributes to change")
 def do_camera_controller_list(cc, args):
     """List camera_controller."""
-    filters = {}
-    for entry in args.filters[0]:
-        key, value = entry.split("=", 1)
-        filters[key] = value
-    camera_controllers = cc.camera_controller(**filters)
+    if len(args.filters) > 0:
+        filters = {}
+        for entry in args.filters[0]:
+            key, value = entry.split("=", 1)
+            filters[key] = value
+            camera_controllers = cc.camera_controller(**filters)
+    else:
+        camera_controllers = cc.camera_controller()
     field_labels = ['UUID', 'Name', 'Active', 'Driver']
     fields = ['id', 'name', 'active', 'driver']
     utils.print_list(camera_controllers, fields, field_labels, sortby=1)
