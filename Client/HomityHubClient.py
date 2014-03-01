@@ -129,7 +129,7 @@ class HomityHubClient(object):
         return self.send_get(location,
                              params={})
 
-    def spoke(self, spoke_id=None, path=None, value=None):
+    def spoke(self, spoke_id=None, path=None, value=None, **kwargs):
         """GET/PUT for spoke."""
         if path == None:
             path = []
@@ -143,7 +143,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 
@@ -198,7 +198,7 @@ class HomityHubClient(object):
                                 value=new_entry_string)
         return False
 
-    def pin(self, pin_id=None, path=None, value=None):
+    def pin(self, pin_id=None, path=None, value=None, **kwargs):
         """GET/PUT for pin object."""
         if path == None:
             path = []
@@ -212,7 +212,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 
@@ -222,7 +222,7 @@ class HomityHubClient(object):
         return self.send_get(location, params={})
 
     def garage_controller(self, garage_controller_id=None,
-                          path=None, value=None):
+                          path=None, value=None, **kwargs):
         """GET/PUT for garage controller."""
         if path == None:
             path = []
@@ -236,7 +236,7 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
 
         return decoded_json_response
 
@@ -258,7 +258,7 @@ class HomityHubClient(object):
             location = '/'.join(path)
             return self.send_delete(location, params={})
 
-    def garage(self, garage_id=None, path=None, value=None):
+    def garage(self, garage_id=None, path=None, value=None, **kwargs):
         """GET/PUT for garage."""
         if path == None:
             path = []
@@ -272,7 +272,67 @@ class HomityHubClient(object):
                                                   params={"value":value})
         else:
             decoded_json_response = self.send_get(location,
-                                                  params={})
+                                                  params=kwargs)
+
+        return decoded_json_response
+
+    def camera_controller_drivers(self):
+        """Grab camera controller driver list."""
+        location = "cameracontrollerdrivers"
+        return self.send_get(location, params={})
+
+    def camera_controller(self, camera_controller_id=None,
+                          path=None, value=None, **kwargs):
+        """GET/PUT for camera controller."""
+        if path == None:
+            path = []
+        if camera_controller_id != None:
+            path.insert(0, camera_controller_id)
+        path.insert(0, "cameracontroller")
+        location = '/'.join(path)
+
+        if value != None:
+            decoded_json_response = self.send_put(location,
+                                                  params={"value":value})
+        else:
+            decoded_json_response = self.send_get(location,
+                                                  params=kwargs)
+
+        return decoded_json_response
+
+    def camera_controller_create(self, name=None,
+                                 driver=None, driver_info=None):
+        """Create a new camera controller."""
+        location = "cameracontroller"
+        return self.send_post(location, params={"name":name,
+                                                "driver":driver,
+                                                "driver_info":driver_info})
+
+    def camera_controller_delete(self, camera_controller_id=None, path=None):
+        """Delete a camera controller."""
+        if path == None:
+            path = []
+        if camera_controller_id:
+            path.insert(0, camera_controller_id)
+            path.insert(0, "cameracontroller")
+            location = '/'.join(path)
+            return self.send_delete(location, params={})
+
+    def camera(self, camera_id=None, path=None, value=None, **kwargs):
+        """GET/PUT for camera."""
+        if path == None:
+            path = []
+        if camera_id != None:
+            path.insert(0, camera_id)
+        path.insert(0, "camera")
+        location = '/'.join(path)
+
+        if value != None:
+            decoded_json_response = self.send_put(location,
+                                                  params={"value":value})
+        else:
+            decoded_json_response = self.send_get(location,
+                                                  params=kwargs)
 
         return decoded_json_response
 

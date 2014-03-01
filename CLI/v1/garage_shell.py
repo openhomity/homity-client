@@ -17,9 +17,19 @@ def do_garage_show(cc, args):
     garage = cc.garage(garage_id=args.garage)
     _print_garage_show(garage)
 
+
+@utils.arg('-f', '--filters', metavar='<key=value>', nargs='+',
+           action='append', default=[], help="Attributes to change")
 def do_garage_list(cc, args):
     """List garages."""
-    garages = cc.garage()
+    if len(args.filters) > 0:
+        filters = {}
+        for entry in args.filters[0]:
+            key, value = entry.split("=", 1)
+            filters[key] = value
+            garages = cc.garage(**filters)
+    else:
+        garages = cc.garage()
     field_labels = ['UUID', 'Controller UUID', 'Location', 'Name', 'Num', 'Allocated', 'On', 'Open']
     fields = ['id', 'controller', 'location', 'name', 'num', 'allocated', 'on', 'open']
     utils.print_list(garages, fields, field_labels, sortby=1)
@@ -49,10 +59,19 @@ def do_garage_controller_garage_list(cc, args):
     field_labels = ['UUID', 'Controller UUID', 'Location', 'Name', 'Num', 'Allocated', 'On', 'Open']
     fields = ['id', 'controller', 'location', 'name', 'num', 'allocated', 'on', 'open']
     utils.print_dict_as_list(garages, fields, field_labels, sortby=1)
-    
+
+@utils.arg('-f', '--filters', metavar='<key=value>', nargs='+',
+           action='append', default=[], help="Attributes to change")
 def do_garage_controller_list(cc, args):
     """List garage_controller."""
-    garage_controllers = cc.garage_controller()
+    if len(args.filters) > 0:
+        filters = {}
+        for entry in args.filters[0]:
+            key, value = entry.split("=", 1)
+            filters[key] = value
+            garage_controllers = cc.garage_controller(**filters)
+    else:
+        garage_controllers = cc.garage_controller()
     field_labels = ['UUID', 'Name', 'Active', 'Driver']
     fields = ['id', 'name', 'active', 'driver']
     utils.print_list(garage_controllers, fields, field_labels, sortby=1)
