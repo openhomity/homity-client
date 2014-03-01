@@ -22,10 +22,10 @@ def do_camera_show(cc, args):
 def do_camera_list(cc, args):
     """List cameras."""
     cameras = cc.camera()
-    field_labels = ['UUID', 'Controller UUID', 'Location',
-                    'Name', 'Allocated', 'On', 'Recording', 'Alerts']
+    field_labels = ['UUID', 'Controller UUID', 'Location', 'Name',
+                    'Description', 'Allocated', 'On', 'Recording', 'Alerts']
     fields = ['id', 'controller', 'location', 'name',
-              'allocated', 'on', 'recording', 'alerts']
+              'description', 'allocated', 'on', 'recording', 'alerts']
     utils.print_list(cameras, fields, field_labels, sortby=1)
 
 @utils.arg('camera', metavar='<camera id>', help="UUID of camera")
@@ -55,10 +55,10 @@ def do_camera_controller_camera_list(cc, args):
     """List cameras for an camera_controller."""
     cameras = cc.camera_controller(camera_controller_id=args.camera_controller,
                                    path=["cameras"])
-    field_labels = ['UUID', 'Controller UUID', 'Location',
-                    'Name', 'Allocated', 'On', 'Recording', 'Alerts']
+    field_labels = ['UUID', 'Controller UUID', 'Location', 'Name',
+                    'Description', 'Allocated', 'On', 'Recording', 'Alerts']
     fields = ['id', 'controller', 'location', 'name',
-              'allocated', 'on', 'recording', 'alerts']
+              'description', 'allocated', 'on', 'recording', 'alerts']
     utils.print_dict_as_list(cameras, fields, field_labels, sortby=1)
 
 def do_camera_controller_list(cc, args):
